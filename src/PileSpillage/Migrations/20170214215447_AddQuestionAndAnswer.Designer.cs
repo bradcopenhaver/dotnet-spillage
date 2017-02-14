@@ -8,9 +8,10 @@ using PileSpillage.Models;
 namespace PileSpillage.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20170214215447_AddQuestionAndAnswer")]
+    partial class AddQuestionAndAnswer
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
             modelBuilder
                 .HasAnnotation("ProductVersion", "1.0.0-rtm-21431")
@@ -199,13 +200,15 @@ namespace PileSpillage.Migrations
                     b.Property<int>("QuestionId")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<string>("AuthorId");
+                    b.Property<int>("AuthorId");
+
+                    b.Property<string>("AuthorId1");
 
                     b.Property<string>("Text");
 
                     b.HasKey("QuestionId");
 
-                    b.HasIndex("AuthorId");
+                    b.HasIndex("AuthorId1");
 
                     b.ToTable("Questions");
                 });
@@ -263,7 +266,7 @@ namespace PileSpillage.Migrations
                 {
                     b.HasOne("PileSpillage.Models.ApplicationUser", "Author")
                         .WithMany()
-                        .HasForeignKey("AuthorId");
+                        .HasForeignKey("AuthorId1");
                 });
         }
     }
