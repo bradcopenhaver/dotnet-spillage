@@ -2,4 +2,13 @@
     ViewData["Title"] = "Pile Spillage";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+@model List<PileSpillage.Models.Question>
+
 <h2>Pile Spillage</h2>
+<hr />
+@foreach(var question in Model)
+{
+    <h4>@question.Text</h4>
+    <p><small>Asked by @question.Author.UserName</small></p>
+    <br />
+}
