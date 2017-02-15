@@ -7,12 +7,13 @@ using PileSpillage.Models;
 using Microsoft.AspNetCore.Identity;
 using System.Security.Claims;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.EntityFrameworkCore;
 
 // For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace PileSpillage.Controllers
 {
-    [Authorize]
+    
     public class QuestionController : Controller
     {
         private readonly ApplicationDbContext _db;
@@ -28,11 +29,12 @@ namespace PileSpillage.Controllers
         {
             return View();
         }
-        
+        [Authorize]
         public IActionResult Create()
         {
             return View();
         }
+        [Authorize]
         [HttpPost]
         public async Task<IActionResult> Create(Question question)
         {
@@ -42,6 +44,15 @@ namespace PileSpillage.Controllers
             _db.Questions.Add(question);
             _db.SaveChanges();
             return RedirectToAction("Index", "Home");
+        }
+
+        public IActionResult Details(int id)
+        {
+            ViewBag.Question = _db.Questions
+                .Include(q => q.Author)
+                .Include(q => q.Answers).ThenInclude(a => a.Author)
+                .FirstOrDefault(q => q.QuestionId == id);
+            return View();
         }
     }
 }

@@ -1,0 +1,49 @@
+﻿@{
+    ViewData["Title"] = "Ask a Question";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var thisQuestion = ViewBag.Question;
+}
+@model PileSpillage.Models.Answer
+<div class="row">
+     <div class="col-sm-8">
+
+        <h3>@thisQuestion.Text</h3>
+        <p><small>Asked by @thisQuestion.Author.UserName</small></p>
+        <hr />
+        <h4>Answers:</h4>
+        @foreach (var answer in thisQuestion.Answers)
+        {
+                    <div class="well">
+                        <p>@answer.Text</p>
+                        <p><small>-@answer.Author.UserName</small></p>
+                    </div>
+        }
+    </div>
+    <div class="col-sm-4">
+        @if (User.Identity.IsAuthenticated)
+        {
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4>Post an answer to this question:</h4>
+                </div>
+                <div class="panel-body">
+                    <form asp-controller="Answer" asp-action="Create" method="post">
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                        <div class="form-group">
+                            <label asp-for="Text"></label>
+                            <input class="form-control" asp-for="Text" value="" />
+                            <span asp-validation-for="Text" class="text-danger"></span>
+                        </div>
+                        <input type="hidden" asp-for="QuestionId" value="@thisQuestion.QuestionId" />
+                        <input class="btn" type="submit" value="Post Answer" />
+                    </form>
+                </div>
+            </div>
+        }
+        else
+        {
+            <h4>Log in to post an answer to this question.</h4>
+        }
+    </div>
+ </div>
+

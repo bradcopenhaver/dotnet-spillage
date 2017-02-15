@@ -13,7 +13,6 @@ namespace PileSpillage.Models
         [Key]
         public int AnswerId { get; set; }
         public string Text { get; set; }
-        public int AuthorId { get; set; }
         public int QuestionId { get; set; }
         public virtual ApplicationUser Author { get; set; }
         public virtual Question Question { get; set; }

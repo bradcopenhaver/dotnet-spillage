@@ -9,6 +9,6 @@
 @foreach(var question in Model)
 {
     <h4>@question.Text</h4>
-    <p><small>Asked by @question.Author.UserName</small></p>
+    <p><small>Asked by @question.Author.UserName</small> <a asp-controller="Question" asp-action="Details" asp-route-id="@question.QuestionId">Details</a><br />@question.Answers.Count answers</p>
     <br />
 }

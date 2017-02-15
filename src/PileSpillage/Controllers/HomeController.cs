@@ -11,8 +11,7 @@ using Microsoft.EntityFrameworkCore;
 // For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace PileSpillage.Controllers
-{
-    [Authorize]
+{ 
     public class HomeController : Controller
     {
         private readonly ApplicationDbContext _db;
